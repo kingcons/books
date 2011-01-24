@@ -20,16 +20,30 @@
 ;; Now exhibiting lexical/block structure
 ;; 1 Global function vs 5 above
 (defn cube-root-v2 [x]
-  (let [improve (fn [guess x]
+  (let [improve (fn [guess]
                   (/ (+ (* 2 guess) (/ x guess guess))
                      3))
-        good-enough? (fn [guess x]
-                       (< (abs (- (improve guess x) guess))
+        good-enough? (fn [guess]
+                       (< (abs (- (improve guess) guess))
                           (* 0.000001 guess)))
         ; note that we have to be explicit about the
         ; fn name here to enable it to recurse
-        cube-iter (fn cube-iter [guess x]
-                    (if (good-enough? guess x)
+        cube-iter (fn cube-iter [guess]
+                    (if (good-enough? guess)
                       guess
-                      (recur (improve guess x) x)))]
-    (cube-iter 1.0 x)))
+                      (recur (improve guess))))]
+    (cube-iter 1.0)))
+
+;; Now more clojurey...maybe.
+(defn cube-root-v3
+  ([x] (cube-root-v3 1.0 x))
+  ([guess x]
+     (let [improve (fn [guess]
+                     (/ (+ (* 2 guess) (/ x guess guess))
+                        3))
+           good-enough? (fn [guess]
+                          (< (abs (- (improve guess) guess))
+                             (* 0.000001 guess)))]
+       (if (good-enough? guess)
+         guess
+         (recur (improve guess) x)))))
