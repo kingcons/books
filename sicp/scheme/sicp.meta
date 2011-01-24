@@ -1,0 +1,14 @@
+;; sicp.meta
+
+((author "Brit Butler")
+ (maintainer "Brit Butler")
+ (synopsis "SICP exercises in Chicken Scheme")
+ (license "MIT")
+ (category misc)
+ (files
+  "ch01"
+  "ch02"
+  "ch03"
+  "ch04"
+  "ch05"
+  "sicp.setup"))

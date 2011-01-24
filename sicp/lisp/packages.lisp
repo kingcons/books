@@ -1,0 +1,2 @@
+(defpackage :sicp
+  (:use :cl))
