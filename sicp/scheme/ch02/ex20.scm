@@ -1,0 +1,11 @@
+(define (same-parity x . y)
+  (define (tester condition? elements)
+    (cond ((null? elements) '())
+	  ((condition? (car elements))
+	   (cons (car elements)
+		 (tester condition? (cdr elements))))
+	  (else (tester condition? (cdr elements)))))
+  (if (even? x)
+      (cons x (tester even? y))
+      (cons x (tester odd? y))))
+;Value: same-parity
